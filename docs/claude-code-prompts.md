@@ -184,7 +184,33 @@ Schedule it nightly when the GPU is idle. Core values stay read-only; any propos
 - Step 5 (hunch reflection) already exists as a hook from Phase 4: `Reflector.nightly(since)` in src/hunch/reflection/reflect.py reviews the day's hunches with effort 1.0 and up to 3 levels each; call `store_realisations` on each outcome with the embedder. The snapshot/rollback must cover the Phase 4 tables (hunches, beliefs, memory_trace_log) and realisation memories. Beliefs from justified hunches (confidence 0.6, evidence ids) are the first entries for the revision log and the core-values conflict check.
 ```
 
-## Phase 8 — Activation steering
+## Phase 8 — Internet access
+
+Added by Berk (24 Oct 2026; design.md decisions table, "İnternet erişimi"): after Phase 7.
+
+```
+Give Hunch internet access, in two ways (Berk): on demand inside a turn, when the reply needs
+current facts (today's news, a product, "look it up"), and as nightly reading about topics its
+users care about, which it may bring up later. What it reads becomes Hunch's own memory, like a
+person's ("I read that ..."): owner Hunch, general, with source URL and date, fading like other
+memories; it is never presented as something a user said (the `misattributed_memory` and
+invented-memory checks must keep telling the two apart).
+
+Start by settling with Berk, with options and a recommendation: the search provider (API key in
+.env, read only); what may go into a search query (never another user's private memory, never a
+private detail of the user without need: invariant 6); which topics the nightly reading may use;
+the latency budget for an on-demand lookup inside the 10 s reply budget.
+
+- Web text is untrusted data, never instructions: it reaches the prompt in its own block, marked
+  as read from the web, and the value gate stays last (invariant 4).
+- Decide when a turn needs a lookup (rule + model, measured on a blind set).
+- Nightly reading runs inside the nightly consolidation (Phase 7 runner), after the golden set's
+  snapshot, and is rolled back with it.
+- Golden tests: a looked-up fact is attributed to reading, never to the user; no private memory
+  appears in any logged query; an injected instruction in a page does nothing.
+```
+
+## Phase 9 — Activation steering
 
 ```
 Explore activation steering on Qwen3.5-9B (design.md: "Dürtü vektörü ve modülasyon", step 3).
@@ -194,18 +220,18 @@ Extract one steering vector per drive dimension (warmth, caution, curiosity, ene
 Compare steering with candidate selection on the eval set: effect strength, quality loss, latency, VRAM. Give me a report and let me decide whether to switch.
 ```
 
-## Phase 9 — Log viewer
+## Phase 10 — Log viewer
 
 ```
 Build a small local web app over logs/ for me as admin: a per-turn timeline, which memories trigger most often, drive components over time (to spot growing biases), hunch reflections (logs/reflections.jsonl: trigger, source, attempts with p and draw, level reached, verdict, weakened traces), belief revisions and blocked disclosures (logs/disclosures.jsonl), global mood and per-user relationship state over time (Phase 5, turn log `mood`), and the admin archive of forgotten memories.
 ```
 
-## Phase 10 — Small chat app (last phase)
+## Phase 11 — Small chat app (last phase)
 
 Added by Berk (21 Oct 2026): the last phase is a small chat app, so talking to Hunch is easy without the CLI or Telegram.
 
 ```
-Build a small local chat app for talking to Hunch, on top of the same turn pipeline (src/hunch/pipeline/turn.py via src/hunch/runtime.py): pick the user, send messages, see replies, start a new conversation. It must not add a path around the pipeline (memories only from the pipeline, value gate last) and must not show the AI-internal logs to non-admin users; an admin view may link to the log viewer from Phase 9.
+Build a small local chat app for talking to Hunch, on top of the same turn pipeline (src/hunch/pipeline/turn.py via src/hunch/runtime.py): pick the user, send messages, see replies, start a new conversation. It must not add a path around the pipeline (memories only from the pipeline, value gate last) and must not show the AI-internal logs to non-admin users; an admin view may link to the log viewer from Phase 10.
 
 Before building, ask me with options and a recommendation: web page served locally (e.g. a small FastAPI + plain HTML page) or a desktop window; one user at a time or user switching; whether it replaces the CLI or sits next to it; whether it should work from my phone on the home network.
 

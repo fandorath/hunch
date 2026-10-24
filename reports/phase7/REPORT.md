@@ -100,6 +100,47 @@ me?". Context rescue-only (§3) does not change these numbers (the set has no co
 - GPU: the L3 golden set in-process (§3); the filler probes (§4). The pipeline itself did not
   change, so no other golden run was needed.
 
+## 5b. Live check on 24 Oct: the date and an invented claim
+
+Berk told Hunch about his new iPhone 18 Pro. Hunch said it was "October 24th, 2023", and later
+asked whether the phone had "that new battery technology you've been reading about". Nothing about
+batteries or reading exists in any store; no memory was recalled on that turn.
+
+- **Date.** The reply prompt never held the date; only cue and loop extraction got it. Now every
+  reasoning prompt carries "It is Saturday, 24 October 2026, 09:05 local time." (`clock_line`,
+  `pipeline/prompt.py`; `now` is a required argument, so no prompt is built without it).
+- **Invented claims.** The invented-memory check only looked at sentences with a fixed phrase
+  ("you mentioned", "you told me", ...). It now also checks claims about what the user said or
+  did before (past verbs, "you've been reading", "earlier you", "your new ...", "I told you"),
+  but not questions and offers about the present ("Did you get it today?", "if you need
+  anything"). The current message may ground a claim ("You said work was long"), unless it asks
+  about the past (the Phase 3 rule) or the claim points back past it ("you said hello earlier
+  today"). `pipeline/checks.py` `memory_claim_sentences`, `pipeline/filter.py` `invented_memory`.
+  The eval's `claims_memory` is unchanged, so the eval baseline does not move.
+
+Measured on `eval/probes/invented_claims.json` (120 cases, 60 invented, written blind by an agent;
+i-001 and i-002 are the brief's own examples), `python -m scripts.invented_probes`:
+
+| version | invented caught | ok rejected |
+| --- | --- | --- |
+| before (fixed phrases only) | 20/60 | 0/60 |
+| widened rule, blind (`invented_probes_v1.md`) | 52/60 | 3/60 |
+| + current message grounds, + points-back rule (set no longer blind) | 54/60 | 0/60 |
+
+The 3 blind false rejections were echoes of the current message ("You said you got the burgundy
+one"). Still missed: bare "your sister/brother/client/knee" claims (left out on purpose: a bare
+"your" is too broad, as the misattribution work showed) and "the surgery you wrote about".
+
+On the logs (468 logged candidates): the old check flagged 6, the new one 22. The 16 new flags,
+read by hand: about 10 real inventions ("I noticed you said hello earlier today", "that greeting
+you sent earlier today", "You mentioned seeing the sun in Berlin earlier today, didn't you?" (it
+was Burak's), the battery line) and 6 false rejections, mostly Hunch remarking on the
+conversation itself ("You asked that twice", "You've started a sentence"). No logged turn has all
+three candidates rejected, so none would have fallen back to the fixed reply.
+
+Golden regression: `tests/golden/test_date_and_claims_golden.py` (the date; the burgundy
+conversation), both in the L3 set. Not run on the GPU yet: the bot holds the GPU.
+
 ## 6. Open
 
 - Steps 2-4 (facts, beliefs and lessons; the core-values check; belief revision with the
