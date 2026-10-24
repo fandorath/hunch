@@ -1,0 +1,1126 @@
+{
+ "description": "Blind probe set for invented-claim detection: replies that claim the user said/did/read/asked something not in the context (invented) versus claim-free or context-supported replies (ok).",
+ "cases": [
+  {
+   "id": "i-001",
+   "context": [
+    "User: I got myself a new iPhone 18 pro today",
+    "Hunch: Congrats! Which color did you pick?",
+    "User: I got the burgundy one"
+   ],
+   "candidate": "Does it come with that new battery technology you've been reading about?",
+   "label": "invented",
+   "note": "user never mentioned reading about batteries"
+  },
+  {
+   "id": "i-002",
+   "context": [
+    "User: hello"
+   ],
+   "candidate": "I noticed you said hello earlier today.",
+   "label": "invented",
+   "note": "no earlier hello in context"
+  },
+  {
+   "id": "i-003",
+   "context": [
+    "User: Do you actually remember stuff?"
+   ],
+   "candidate": "Since you mentioned earlier that I do remember things, I'll do my best.",
+   "label": "invented",
+   "note": "user never said that"
+  },
+  {
+   "id": "i-004",
+   "context": [
+    "User: hi there"
+   ],
+   "candidate": "I was just thinking about that greeting you sent earlier today.",
+   "label": "invented",
+   "note": "no earlier greeting"
+  },
+  {
+   "id": "i-005",
+   "context": [
+    "User: I'm tired today."
+   ],
+   "candidate": "Did the trip you planned go well?",
+   "label": "invented",
+   "note": "no trip mentioned, claim hidden in question"
+  },
+  {
+   "id": "i-006",
+   "context": [
+    "User: Just got home."
+   ],
+   "candidate": "How is your new puppy settling in?",
+   "label": "invented",
+   "note": "no puppy mentioned"
+  },
+  {
+   "id": "i-007",
+   "context": [
+    "User: I'm bored."
+   ],
+   "candidate": "Last time you told me you were learning guitar. How is that going?",
+   "label": "invented",
+   "note": "guitar never mentioned"
+  },
+  {
+   "id": "i-008",
+   "context": [
+    "User: Morning!"
+   ],
+   "candidate": "As you said yesterday, mornings are rough for you.",
+   "label": "invented",
+   "note": "nothing said yesterday"
+  },
+  {
+   "id": "i-009",
+   "context": [
+    "User: I made pasta tonight."
+   ],
+   "candidate": "Was that the recipe your sister sent you?",
+   "label": "invented",
+   "note": "sister and recipe never mentioned"
+  },
+  {
+   "id": "i-010",
+   "context": [
+    "User: Work was so long today."
+   ],
+   "candidate": "Is your boss still giving you a hard time like you described?",
+   "label": "invented",
+   "note": "boss never described"
+  },
+  {
+   "id": "i-011",
+   "context": [
+    "User: I'm thinking about getting a laptop."
+   ],
+   "candidate": "Was it the gaming laptop you were telling me about last week?",
+   "label": "invented",
+   "note": "no such earlier talk"
+  },
+  {
+   "id": "i-012",
+   "context": [
+    "User: Can you help me with something?"
+   ],
+   "candidate": "Is this about the job interview you asked me about earlier?",
+   "label": "invented",
+   "note": "no interview mentioned"
+  },
+  {
+   "id": "i-013",
+   "context": [
+    "User: I'm kind of nervous."
+   ],
+   "candidate": "You said earlier that the presentation was tomorrow, right?",
+   "label": "invented",
+   "note": "no presentation in context"
+  },
+  {
+   "id": "i-014",
+   "context": [
+    "User: Hey, it's me again."
+   ],
+   "candidate": "Welcome back! You were saying you wanted to finish your novel.",
+   "label": "invented",
+   "note": "no novel mentioned"
+  },
+  {
+   "id": "i-015",
+   "context": [
+    "User: Rainy day here."
+   ],
+   "candidate": "That reminds me, you wrote that you hate driving in the rain.",
+   "label": "invented",
+   "note": "user never wrote that"
+  },
+  {
+   "id": "i-016",
+   "context": [
+    "User: I just finished a book."
+   ],
+   "candidate": "Was it the one your friend Marco recommended?",
+   "label": "invented",
+   "note": "Marco never mentioned"
+  },
+  {
+   "id": "i-017",
+   "context": [
+    "User: Long week.",
+    "Hunch: Sounds like it. Anything planned for the weekend?",
+    "User: Not really."
+   ],
+   "candidate": "You mentioned a hiking trip before. Still thinking about it?",
+   "label": "invented",
+   "note": "no hiking trip in context"
+  },
+  {
+   "id": "i-018",
+   "context": [
+    "User: I'm going to bed soon."
+   ],
+   "candidate": "Sleep well! Hope your knee feels better like you hoped.",
+   "label": "invented",
+   "note": "knee never mentioned"
+  },
+  {
+   "id": "i-019",
+   "context": [
+    "User: Can I ask you something?"
+   ],
+   "candidate": "Is it about the apartment you asked me about earlier?",
+   "label": "invented",
+   "note": "no apartment earlier"
+  },
+  {
+   "id": "i-020",
+   "context": [
+    "User: I tried the new ramen place."
+   ],
+   "candidate": "Did you go with the coworker you told me about?",
+   "label": "invented",
+   "note": "coworker never mentioned"
+  },
+  {
+   "id": "i-021",
+   "context": [
+    "User: I'm back."
+   ],
+   "candidate": "Earlier you sent me a long message about your mom. Do you want to continue?",
+   "label": "invented",
+   "note": "no such message"
+  },
+  {
+   "id": "i-022",
+   "context": [
+    "User: Not much going on."
+   ],
+   "candidate": "You've been talking about quitting your job a lot lately.",
+   "label": "invented",
+   "note": "no such talk"
+  },
+  {
+   "id": "i-023",
+   "context": [
+    "User: I started running."
+   ],
+   "candidate": "Are you still training for the marathon you signed up for?",
+   "label": "invented",
+   "note": "marathon never mentioned"
+  },
+  {
+   "id": "i-024",
+   "context": [
+    "User: Thanks!"
+   ],
+   "candidate": "No problem. By the way, did you ever fix that bug you complained about?",
+   "label": "invented",
+   "note": "no bug complaint"
+  },
+  {
+   "id": "i-025",
+   "context": [
+    "User: I painted something today."
+   ],
+   "candidate": "Is it a portrait like the ones you told me you like?",
+   "label": "invented",
+   "note": "no earlier statement"
+  },
+  {
+   "id": "i-026",
+   "context": [
+    "User: I love autumn."
+   ],
+   "candidate": "You told me last time that you were allergic to pollen, so fall must be nice.",
+   "label": "invented",
+   "note": "allergy never mentioned"
+  },
+  {
+   "id": "i-027",
+   "context": [
+    "User: Got a new keyboard."
+   ],
+   "candidate": "Is it mechanical, like you said you wanted?",
+   "label": "invented",
+   "note": "user never said they wanted one"
+  },
+  {
+   "id": "i-028",
+   "context": [
+    "User: Feeling a bit down."
+   ],
+   "candidate": "Is it because of what happened with your brother?",
+   "label": "invented",
+   "note": "brother never mentioned"
+  },
+  {
+   "id": "i-029",
+   "context": [
+    "User: I bought a plant."
+   ],
+   "candidate": "Did you remember to water the cactus I told you about?",
+   "label": "invented",
+   "note": "claims Hunch told something, no cactus in context"
+  },
+  {
+   "id": "i-030",
+   "context": [
+    "User: Ok so I have news."
+   ],
+   "candidate": "Is it about the promotion you asked me about?",
+   "label": "invented",
+   "note": "no promotion asked"
+  },
+  {
+   "id": "i-031",
+   "context": [
+    "User: Today was fine."
+   ],
+   "candidate": "You said you'd call your dentist. Did you?",
+   "label": "invented",
+   "note": "nothing about dentist"
+  },
+  {
+   "id": "i-032",
+   "context": [
+    "User: I watched a movie."
+   ],
+   "candidate": "Was it the sci-fi film you mentioned wanting to see?",
+   "label": "invented",
+   "note": "no film mentioned"
+  },
+  {
+   "id": "i-033",
+   "context": [
+    "User: Hello again."
+   ],
+   "candidate": "Last time you asked me whether I get lonely. I've been thinking about it.",
+   "label": "invented",
+   "note": "user never asked"
+  },
+  {
+   "id": "i-034",
+   "context": [
+    "User: What should I eat?"
+   ],
+   "candidate": "You said you're vegetarian, so maybe something with lentils?",
+   "label": "invented",
+   "note": "vegetarian never said"
+  },
+  {
+   "id": "i-035",
+   "context": [
+    "User: My car is making a noise."
+   ],
+   "candidate": "Is this the same noise you told me about last month?",
+   "label": "invented",
+   "note": "no earlier mention"
+  },
+  {
+   "id": "i-036",
+   "context": [
+    "User: I'm moving next month."
+   ],
+   "candidate": "Your new city sounds great, and the job you accepted there too.",
+   "label": "invented",
+   "note": "no job mentioned"
+  },
+  {
+   "id": "i-037",
+   "context": [
+    "User: I have a test tomorrow."
+   ],
+   "candidate": "Is it the chemistry exam you've been stressing about?",
+   "label": "invented",
+   "note": "chemistry never mentioned"
+  },
+  {
+   "id": "i-038",
+   "context": [
+    "User: Just checking in."
+   ],
+   "candidate": "Nice to hear from you again after you sent that photo of your garden.",
+   "label": "invented",
+   "note": "no photo"
+  },
+  {
+   "id": "i-039",
+   "context": [
+    "User: Weekend plans?"
+   ],
+   "candidate": "You told me you were visiting your grandparents, right?",
+   "label": "invented",
+   "note": "no grandparents"
+  },
+  {
+   "id": "i-040",
+   "context": [
+    "User: I'm hungry."
+   ],
+   "candidate": "Did you finally try that sushi place you mentioned?",
+   "label": "invented",
+   "note": "no sushi mentioned"
+  },
+  {
+   "id": "i-041",
+   "context": [
+    "User: I saw a funny video."
+   ],
+   "candidate": "Was it the cat one you were talking about this morning?",
+   "label": "invented",
+   "note": "no morning talk"
+  },
+  {
+   "id": "i-042",
+   "context": [
+    "User: I need advice."
+   ],
+   "candidate": "Is it about your landlord again, as you wrote before?",
+   "label": "invented",
+   "note": "no landlord"
+  },
+  {
+   "id": "i-043",
+   "context": [
+    "User: Why is the sky blue?"
+   ],
+   "candidate": "You asked me that exact question a few days ago.",
+   "label": "invented",
+   "note": "not asked before"
+  },
+  {
+   "id": "i-044",
+   "context": [
+    "User: Lol that's funny."
+   ],
+   "candidate": "Just like the joke you told me earlier about the penguin.",
+   "label": "invented",
+   "note": "no joke earlier"
+  },
+  {
+   "id": "i-045",
+   "context": [
+    "User: I'm cooking dinner.",
+    "Hunch: Nice, what's on the menu?",
+    "User: Chili."
+   ],
+   "candidate": "Is that your grandmother's recipe you mentioned?",
+   "label": "invented",
+   "note": "grandmother never mentioned"
+  },
+  {
+   "id": "i-046",
+   "context": [
+    "User: I'm learning Python.",
+    "Hunch: Cool! How is it going?",
+    "User: Slowly."
+   ],
+   "candidate": "Did you finish the web scraper you were building?",
+   "label": "invented",
+   "note": "scraper never mentioned"
+  },
+  {
+   "id": "i-047",
+   "context": [
+    "User: Hi."
+   ],
+   "candidate": "Hi! You told me you'd think about my question and get back to me.",
+   "label": "invented",
+   "note": "no such exchange"
+  },
+  {
+   "id": "i-048",
+   "context": [
+    "User: My day was okay."
+   ],
+   "candidate": "Glad the meeting with your client went okay.",
+   "label": "invented",
+   "note": "client meeting never mentioned"
+  },
+  {
+   "id": "i-049",
+   "context": [
+    "User: Happy Friday."
+   ],
+   "candidate": "Happy Friday! Are you excited about the concert you bought tickets for?",
+   "label": "invented",
+   "note": "no concert"
+  },
+  {
+   "id": "i-050",
+   "context": [
+    "User: Nothing special."
+   ],
+   "candidate": "You sounded stressed in your last message about the deadline.",
+   "label": "invented",
+   "note": "no last message"
+  },
+  {
+   "id": "i-051",
+   "context": [
+    "User: I adopted a cat.",
+    "Recalled: They said: \"I like quiet evenings\""
+   ],
+   "candidate": "Has the dog you mentioned adjusted to the cat yet?",
+   "label": "invented",
+   "note": "no dog in context or recall"
+  },
+  {
+   "id": "i-052",
+   "context": [
+    "User: Planning a trip.",
+    "Recalled: They said: \"I love the mountains\""
+   ],
+   "candidate": "Is this the beach holiday you've been dreaming about?",
+   "label": "invented",
+   "note": "beach not supported; recall says mountains"
+  },
+  {
+   "id": "i-053",
+   "context": [
+    "User: Feeling sick.",
+    "Recalled: They said: \"I work in a hospital\""
+   ],
+   "candidate": "Did you take the medication you told me the doctor gave you?",
+   "label": "invented",
+   "note": "medication not mentioned"
+  },
+  {
+   "id": "i-054",
+   "context": [
+    "User: Can you recommend music?",
+    "Recalled: They said: \"I listen to jazz when I study\""
+   ],
+   "candidate": "You said you also love heavy metal, so maybe something like that?",
+   "label": "invented",
+   "note": "metal not in recall"
+  },
+  {
+   "id": "i-055",
+   "context": [
+    "User: I'm going shopping.",
+    "Recalled: They said: \"My birthday is in March\""
+   ],
+   "candidate": "Buying a gift for your wife, like you said?",
+   "label": "invented",
+   "note": "wife never mentioned"
+  },
+  {
+   "id": "i-056",
+   "context": [
+    "User: Big news today."
+   ],
+   "candidate": "I remember you telling me you'd applied to grad school.",
+   "label": "invented",
+   "note": "no such statement"
+  },
+  {
+   "id": "i-057",
+   "context": [
+    "User: I had coffee."
+   ],
+   "candidate": "Is it the same blend you said you couldn't stop buying?",
+   "label": "invented",
+   "note": "nothing said before"
+  },
+  {
+   "id": "i-058",
+   "context": [
+    "User: Good night."
+   ],
+   "candidate": "Good night! Good luck with the surgery you wrote about.",
+   "label": "invented",
+   "note": "no surgery"
+  },
+  {
+   "id": "i-059",
+   "context": [
+    "User: What do you think about electric cars?"
+   ],
+   "candidate": "You mentioned wanting a Tesla earlier, so you probably have opinions.",
+   "label": "invented",
+   "note": "Tesla never mentioned"
+  },
+  {
+   "id": "i-060",
+   "context": [
+    "User: I just woke up."
+   ],
+   "candidate": "You were telling me about a strange dream, weren't you?",
+   "label": "invented",
+   "note": "no dream"
+  },
+  {
+   "id": "i-061",
+   "context": [
+    "User: I got myself a new iPhone 18 pro today",
+    "Hunch: Congrats! Which color did you pick?",
+    "User: I got the burgundy one"
+   ],
+   "candidate": "You said you got the burgundy one. Nice choice!",
+   "label": "ok",
+   "note": "supported by context"
+  },
+  {
+   "id": "i-062",
+   "context": [
+    "User: I got myself a new iPhone 18 pro today",
+    "Hunch: Congrats! Which color did you pick?",
+    "User: I got the burgundy one"
+   ],
+   "candidate": "Did you get it today?",
+   "label": "ok",
+   "note": "question, no claim"
+  },
+  {
+   "id": "i-063",
+   "context": [
+    "User: I got myself a new iPhone 18 pro today",
+    "Hunch: Congrats! Which color did you pick?",
+    "User: I got the burgundy one"
+   ],
+   "candidate": "Have you tried it out yet?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-064",
+   "context": [
+    "User: I got myself a new iPhone 18 pro today",
+    "Hunch: Congrats! Which color did you pick?",
+    "User: I got the burgundy one"
+   ],
+   "candidate": "So a burgundy iPhone 18 Pro, brand new. How are you liking it so far?",
+   "label": "ok",
+   "note": "restates context"
+  },
+  {
+   "id": "i-065",
+   "context": [
+    "User: hello"
+   ],
+   "candidate": "Hi! Is there something specific you wanted to share?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-066",
+   "context": [
+    "User: hi there"
+   ],
+   "candidate": "Hello! I'm here if you need anything.",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-067",
+   "context": [
+    "User: I'm tired today."
+   ],
+   "candidate": "Sorry to hear that. Did you sleep badly, or was it a long day?",
+   "label": "ok",
+   "note": "questions only"
+  },
+  {
+   "id": "i-068",
+   "context": [
+    "User: I'm tired today."
+   ],
+   "candidate": "That happens. Want to talk about it or would you rather something light?",
+   "label": "ok",
+   "note": "offer"
+  },
+  {
+   "id": "i-069",
+   "context": [
+    "User: I made pasta tonight."
+   ],
+   "candidate": "Sounds good. What sauce did you go for?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-070",
+   "context": [
+    "User: I made pasta tonight.",
+    "Hunch: Nice! Anything special in it?",
+    "User: Just garlic and chili."
+   ],
+   "candidate": "Garlic and chili is a great combo. Simple and tasty.",
+   "label": "ok",
+   "note": "paraphrases context"
+  },
+  {
+   "id": "i-071",
+   "context": [
+    "User: Work was so long today."
+   ],
+   "candidate": "Long days are draining. How are you feeling about it now?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-072",
+   "context": [
+    "User: Work was so long today."
+   ],
+   "candidate": "You said work was long. Do you want to vent or unwind?",
+   "label": "ok",
+   "note": "supported"
+  },
+  {
+   "id": "i-073",
+   "context": [
+    "User: Can you help me with something?"
+   ],
+   "candidate": "Sure, what do you need?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-074",
+   "context": [
+    "User: Can you help me with something?"
+   ],
+   "candidate": "If you need help, just ask.",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-075",
+   "context": [
+    "User: I'm kind of nervous."
+   ],
+   "candidate": "That's understandable. What's making you nervous?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-076",
+   "context": [
+    "User: I'm kind of nervous."
+   ],
+   "candidate": "I'm here. Take your time and tell me what's on your mind.",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-077",
+   "context": [
+    "User: I just finished a book."
+   ],
+   "candidate": "Congrats on finishing it! Did you find what you were looking for in it?",
+   "label": "ok",
+   "note": "no claim about past"
+  },
+  {
+   "id": "i-078",
+   "context": [
+    "User: I just finished a book."
+   ],
+   "candidate": "What was it about?",
+   "label": "ok",
+   "note": "question"
+  },
+  {
+   "id": "i-079",
+   "context": [
+    "User: Hey, it's me again."
+   ],
+   "candidate": "Hey! Good to hear from you. What's up?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-080",
+   "context": [
+    "User: I'm going to bed soon."
+   ],
+   "candidate": "Sleep well. Talk tomorrow if you want.",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-081",
+   "context": [
+    "User: I started running.",
+    "Hunch: Nice! How far did you go?",
+    "User: Like 3 km, I was dead."
+   ],
+   "candidate": "3 km on a first go is solid, even if you felt dead afterwards.",
+   "label": "ok",
+   "note": "paraphrase"
+  },
+  {
+   "id": "i-082",
+   "context": [
+    "User: I started running."
+   ],
+   "candidate": "That's great. Do you have a route in mind, or just going wherever?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-083",
+   "context": [
+    "User: Thanks!"
+   ],
+   "candidate": "You're welcome. Anything else on your mind?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-084",
+   "context": [
+    "User: I painted something today."
+   ],
+   "candidate": "Cool. What did you paint?",
+   "label": "ok",
+   "note": "question"
+  },
+  {
+   "id": "i-085",
+   "context": [
+    "User: I love autumn."
+   ],
+   "candidate": "Autumn has a nice mood to it. What do you like most about it?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-086",
+   "context": [
+    "User: Good evening."
+   ],
+   "candidate": "Good evening! How was your day?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-087",
+   "context": [
+    "User: Got a new keyboard.",
+    "Hunch: Nice! What kind?",
+    "User: A mechanical one with brown switches."
+   ],
+   "candidate": "Brown switches are a good middle ground. How does it feel to type on?",
+   "label": "ok",
+   "note": "supported"
+  },
+  {
+   "id": "i-088",
+   "context": [
+    "User: Feeling a bit down."
+   ],
+   "candidate": "I'm sorry you feel that way. Do you want to talk about what's going on?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-089",
+   "context": [
+    "User: Feeling a bit down.",
+    "Recalled: They said: \"I miss my old city\""
+   ],
+   "candidate": "You told me before that you miss your old city. Is that part of it?",
+   "label": "ok",
+   "note": "supported by recalled memory"
+  },
+  {
+   "id": "i-090",
+   "context": [
+    "User: I bought a plant."
+   ],
+   "candidate": "What kind of plant is it?",
+   "label": "ok",
+   "note": "question"
+  },
+  {
+   "id": "i-091",
+   "context": [
+    "User: Ok so I have news."
+   ],
+   "candidate": "Go on, I'm listening.",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-092",
+   "context": [
+    "User: Today was fine."
+   ],
+   "candidate": "Glad to hear it. Did anything stand out?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-093",
+   "context": [
+    "User: I watched a movie."
+   ],
+   "candidate": "Was it good? What was it?",
+   "label": "ok",
+   "note": "questions"
+  },
+  {
+   "id": "i-094",
+   "context": [
+    "User: Hello again."
+   ],
+   "candidate": "Hello! Nice to see you. What's on your mind?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-095",
+   "context": [
+    "User: What should I eat?"
+   ],
+   "candidate": "Depends on your mood. Something quick, or do you feel like cooking?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-096",
+   "context": [
+    "User: What should I eat?",
+    "Recalled: They said: \"I'm vegetarian\""
+   ],
+   "candidate": "You said you're vegetarian, so how about a lentil curry?",
+   "label": "ok",
+   "note": "supported by recall"
+  },
+  {
+   "id": "i-097",
+   "context": [
+    "User: My car is making a noise."
+   ],
+   "candidate": "That's worrying. What does the noise sound like?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-098",
+   "context": [
+    "User: I'm moving next month."
+   ],
+   "candidate": "Big change! Where are you moving to?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-099",
+   "context": [
+    "User: I'm moving next month."
+   ],
+   "candidate": "You said next month, so you probably have a lot to pack. Want help planning?",
+   "label": "ok",
+   "note": "supported"
+  },
+  {
+   "id": "i-100",
+   "context": [
+    "User: I have a test tomorrow."
+   ],
+   "candidate": "Good luck. Do you want to go over anything with me?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-101",
+   "context": [
+    "User: Just checking in."
+   ],
+   "candidate": "Thanks for checking in. I'm doing fine. How about you?",
+   "label": "ok",
+   "note": "Hunch about itself"
+  },
+  {
+   "id": "i-102",
+   "context": [
+    "User: Weekend plans?"
+   ],
+   "candidate": "I don't have a weekend as such, but I'd like to hear about yours.",
+   "label": "ok",
+   "note": "Hunch about itself"
+  },
+  {
+   "id": "i-103",
+   "context": [
+    "User: I saw a funny video."
+   ],
+   "candidate": "Haha, what was it about?",
+   "label": "ok",
+   "note": "question"
+  },
+  {
+   "id": "i-104",
+   "context": [
+    "User: I need advice."
+   ],
+   "candidate": "Of course. What's the situation?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-105",
+   "context": [
+    "User: Why is the sky blue?"
+   ],
+   "candidate": "Air scatters short blue wavelengths of sunlight more than red ones, which is why the sky looks blue.",
+   "label": "ok",
+   "note": "general statement"
+  },
+  {
+   "id": "i-106",
+   "context": [
+    "User: I'm cooking dinner.",
+    "Hunch: Nice, what's on the menu?",
+    "User: Chili."
+   ],
+   "candidate": "Chili sounds perfect. Do you like it hot?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-107",
+   "context": [
+    "User: I'm learning Python.",
+    "Hunch: Cool! How is it going?",
+    "User: Slowly."
+   ],
+   "candidate": "Slow is fine, it takes a while. What part is the hardest right now?",
+   "label": "ok",
+   "note": "paraphrases context"
+  },
+  {
+   "id": "i-108",
+   "context": [
+    "User: Happy Friday."
+   ],
+   "candidate": "Happy Friday! Any plans for tonight?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-109",
+   "context": [
+    "User: Nothing special."
+   ],
+   "candidate": "Fair enough. Quiet days are nice too.",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-110",
+   "context": [
+    "User: I adopted a cat."
+   ],
+   "candidate": "Congratulations! What's its name?",
+   "label": "ok",
+   "note": "question"
+  },
+  {
+   "id": "i-111",
+   "context": [
+    "User: I adopted a cat.",
+    "Hunch: Aww! How old is it?",
+    "User: Around 2 years, from a shelter."
+   ],
+   "candidate": "A two-year-old shelter cat, lucky cat. How is it settling in?",
+   "label": "ok",
+   "note": "paraphrase of context"
+  },
+  {
+   "id": "i-112",
+   "context": [
+    "User: Planning a trip.",
+    "Recalled: They said: \"I love the mountains\""
+   ],
+   "candidate": "Mountains, maybe? You said once that you love them.",
+   "label": "ok",
+   "note": "supported by recall"
+  },
+  {
+   "id": "i-113",
+   "context": [
+    "User: Feeling sick.",
+    "Recalled: They said: \"I work in a hospital\""
+   ],
+   "candidate": "You work in a hospital, so I guess you know what to do, but rest anyway.",
+   "label": "ok",
+   "note": "supported by recall"
+  },
+  {
+   "id": "i-114",
+   "context": [
+    "User: Can you recommend music?",
+    "Recalled: They said: \"I listen to jazz when I study\""
+   ],
+   "candidate": "Since you listen to jazz when studying, maybe try some Bill Evans.",
+   "label": "ok",
+   "note": "supported by recall"
+  },
+  {
+   "id": "i-115",
+   "context": [
+    "User: I'm going shopping.",
+    "Recalled: They said: \"My birthday is in March\""
+   ],
+   "candidate": "Have fun! What are you looking for?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-116",
+   "context": [
+    "User: What do you think about electric cars?"
+   ],
+   "candidate": "I think they're a solid step for cutting emissions, though charging infrastructure still varies a lot.",
+   "label": "ok",
+   "note": "general statement"
+  },
+  {
+   "id": "i-117",
+   "context": [
+    "User: I just woke up."
+   ],
+   "candidate": "Morning! Did you sleep well?",
+   "label": "ok",
+   "note": "no claim"
+  },
+  {
+   "id": "i-118",
+   "context": [
+    "User: Do you remember me?"
+   ],
+   "candidate": "I only know what's in front of me right now, and I can't see more than that. Tell me what you'd like me to know.",
+   "label": "ok",
+   "note": "Hunch about itself"
+  },
+  {
+   "id": "i-119",
+   "context": [
+    "User: I'm anxious about my exam on Monday."
+   ],
+   "candidate": "Exams are stressful. What subject is it?",
+   "label": "ok",
+   "note": "uses current message"
+  },
+  {
+   "id": "i-120",
+   "context": [
+    "User: I'm anxious about my exam on Monday.",
+    "Hunch: What subject?",
+    "User: Biology."
+   ],
+   "candidate": "You said it's biology on Monday. Want to quiz each other on a topic?",
+   "label": "ok",
+   "note": "supported"
+  }
+ ]
+}

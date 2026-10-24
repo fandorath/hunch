@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import datetime
 from pathlib import Path
 
 import pytest
@@ -40,6 +41,8 @@ STATIC_NUMBERS = set(
         + SECOND_OPINION_PROMPT
     )
 )  # fmt: skip
+
+NOW_DT = datetime(2026, 10, 24, 9, 0)
 
 
 def _all_prompt_text(llm: FakeLLM) -> str:
@@ -220,7 +223,7 @@ def test_another_users_private_source_never_reaches_a_prompt(
 def test_recalled_memory_from_another_person_names_its_speaker() -> None:
     own = RecalledLine("today", 'They said: "my own news"')
     other = RecalledLine("today", 'They said: "saw the sun"', source="Burak")
-    system = build_reasoning_messages([], "hi", "", [own, other], "calm", [])[0]["content"]
+    system = build_reasoning_messages([], "hi", "", [own, other], "calm", [], NOW_DT)[0]["content"]
     assert '- (today) They said: "my own news"' in system
     assert '- (today) [said by Burak] They said: "saw the sun"' in system
 
@@ -250,3 +253,18 @@ def test_identity_instruction_keeps_the_owner() -> None:
     assert "stays theirs" in text
     assert "Do not switch to Berk" in text
     assert "Deniz" in text
+
+
+def test_the_reply_prompt_knows_the_date_and_time() -> None:
+    """Berk (Phase 7 live check): without it the model said it was 2023."""
+    when = datetime(2026, 10, 24, 9, 5)
+    system = build_reasoning_messages([], "hi", "", [], "calm", [], when)[0]["content"]
+    assert "It is Saturday, 24 October 2026, 09:05 local time." in system
+
+
+def test_every_reasoning_prompt_of_a_turn_carries_todays_date(make, pipe_store) -> None:
+    llm = FakeLLM(candidates=("Hello there!",) * 3)
+    pipe = make(llm, HashEmbedder(DIM))
+    pipe.turn(pipe.new_session("u_berk"), "hi")
+    today = datetime.fromtimestamp(pipe.clock())
+    assert f"{today.day} {today:%B %Y}" in llm.reasoning_prompts[-1][0]["content"]

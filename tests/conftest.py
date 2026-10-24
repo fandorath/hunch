@@ -39,7 +39,7 @@ AREAS: dict[str, str] = {
     "test_mood.py": "mood", "test_mood_signals.py": "mood",
     "test_privacy_categories.py": "privacy", "test_privacy_answers.py": "privacy",
     "test_pipeline_privacy.py": "privacy", "test_cross_user_privacy.py": "privacy",
-    "test_misattribution_golden.py": "pipeline",
+    "test_misattribution_golden.py": "pipeline", "test_date_and_claims_golden.py": "pipeline",
     "test_leak_check.py": "privacy", "test_privacy_question.py": "privacy",
     "test_forget_requests.py": "forget", "test_forget.py": "forget",
     "test_forget_golden.py": "forget",

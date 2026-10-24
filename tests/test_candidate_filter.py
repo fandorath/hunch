@@ -252,3 +252,30 @@ def test_no_other_people_means_no_misattribution() -> None:
     assert "misattributed_memory" not in check_candidate(
         text, BURAK_SUN, attribution=Attribution(BURAK_SUN, ())
     )
+
+
+# --- invented claims about the past (Berk, Phase 7 live check) -----------------------------------
+
+PHONE = "I got myself a new iPhone 18 pro today"
+
+
+@pytest.mark.parametrize(
+    ("text", "prior", "message", "invented"),
+    [
+        # The logged case: nothing about batteries or reading was ever said.
+        ("Does it come with that new battery technology you've been reading about?",
+         PHONE, "I got the burgundy one", True),
+        ("I noticed you said hello earlier today.", "", "hello", True),  # points back past "hello"
+        ("I hope the trip you planned went well.", PHONE, "ok", True),
+        # Grounded, also by the current message unless it asks about the past.
+        ("You said you got the burgundy one. Nice!", PHONE, "I got the burgundy one", False),
+        ("You told me it was the burgundy one.", PHONE, "Do you remember which one I got?", True),
+        # Questions and offers about the present claim nothing.
+        ("Did you get it today?", PHONE, "yes", False),
+        ("Have you tried it out yet?", PHONE, "yes", False),
+        ("I'm here if you need anything.", "", "hey", False),
+        ("Is there something specific you wanted to share?", "", "hey", False),
+    ],
+)  # fmt: skip
+def test_invented_claims_about_the_past(text: str, prior: str, message: str, invented: bool):
+    assert ("invented_memory" in check_candidate(text, prior, message=message)) is invented

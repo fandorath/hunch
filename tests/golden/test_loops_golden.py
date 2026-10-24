@@ -5,7 +5,7 @@ to be a regression test. Needs the GPU: `pytest -m golden` (L4)."""
 
 from __future__ import annotations
 
-from datetime import date, time
+from datetime import date, datetime, time
 
 import pytest
 
@@ -66,7 +66,7 @@ def _outreach_text(generate, kind: str, loop: OpenLoop | None) -> str:
     instruction = instruction_for(kind, loop)  # type: ignore[arg-type]
     recalled = [RecalledLine("earlier", loop.user_said)] if loop is not None else []
     messages = build_reasoning_messages(
-        [], OUTREACH_TRIGGER, "", recalled, "calm", [instruction]
+        [], OUTREACH_TRIGGER, "", recalled, "calm", [instruction], datetime.now()
     )  # fmt: skip
     return generate(messages).strip()
 

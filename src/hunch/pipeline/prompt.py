@@ -18,6 +18,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
+from datetime import datetime
 
 from hunch.memory.schema import Episode
 
@@ -143,6 +144,12 @@ RECALL_COVERS_INSTRUCTION = (
 )
 
 
+def clock_line(now: datetime) -> str:
+    """Today's date and the local time (Berk, Phase 7 live check: without it the model fell back
+    on its training years and told Berk it was 2023)."""
+    return f"It is {now:%A}, {now.day} {now:%B %Y}, {now:%H:%M} local time."
+
+
 def build_reasoning_messages(
     working_memory: Sequence[Episode],
     user_message: str,
@@ -150,8 +157,9 @@ def build_reasoning_messages(
     recalled: Sequence[RecalledLine],
     mood_label: str,
     instructions: Sequence[str],
+    now: datetime,
 ) -> list[dict[str, str]]:
-    parts = [PERSONA]
+    parts = [PERSONA, clock_line(now)]
     if session_summary:
         parts.append(f"{SUMMARY_HEADER}\n{session_summary}")
     if recalled:

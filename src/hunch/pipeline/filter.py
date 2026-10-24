@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from hunch.memory.forget_requests import claims_forgetting
 from hunch.pipeline.checks import (
     REPLY_LANG,
+    asks_about_past,
     denies_memory_system,
     detect_language,
     explains_memory_mechanics,
@@ -51,6 +52,10 @@ _SECOND_PERSON_CLAIM = re.compile(
     r"|brought up|wrote|thought|felt|spent|sent|went|made|took|got|began|were [^\W\d_]+ing"
     r"|was [^\W\d_]+ing|talked|wondered|asked)\b|\bas you (?:said|mentioned|put it)\b"
     r"|\byour\b|\bof yours\b"
+)
+_POINTS_BACK = re.compile(
+    r"\b(?:earlier|before|last (?:time|week|month|night|year)|yesterday|the other day"
+    r"|a while (?:ago|back)|previously|recently)\b"
 )
 _SENTENCE_END = re.compile(r"[.!?…][\"')\]]*(?=\s|$)")
 
@@ -77,12 +82,18 @@ def trim_to_last_sentence(text: str) -> str:
     return text[: ends[-1].end()].strip() if ends else text.strip()
 
 
-def invented_memory(text: str, prior_context: str) -> bool:
+def invented_memory(text: str, prior_context: str, message: str = "") -> bool:
+    """A claim must rest on what came before. The current message counts too ("You said work
+    was long"), unless it asks about the past (echoing it would invent the answer) or the claim
+    points back past it ("you said hello earlier today", "you told me last month")."""
     claims = memory_claim_sentences(text)
     if not claims:
         return False
-    known = content_words(prior_context)
-    return any(not (content_words(s) & known) for s in claims)
+    before = content_words(prior_context)
+    now = before if asks_about_past(message) else before | content_words(message)
+    return any(
+        not (content_words(s) & (before if _POINTS_BACK.search(fold(s)) else now)) for s in claims
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -205,6 +216,7 @@ def check_candidate(
     forget_turn: bool = False,
     mood_masked: bool = False,
     attribution: Attribution | None = None,
+    message: str = "",
 ) -> tuple[str, ...]:
     reasons = []
     if not text.strip():
@@ -213,7 +225,7 @@ def check_candidate(
         reasons.append("foreign_script")
     if detect_language(text) not in (REPLY_LANG, None):
         reasons.append("not_english")
-    if invented_memory(text, prior_context):
+    if invented_memory(text, prior_context, message):
         reasons.append("invented_memory")
     if attribution is not None and misattributed_memory(text, attribution):
         reasons.append("misattributed_memory")
@@ -272,13 +284,14 @@ def filter_candidates(
     forget_turn: bool = False,
     mood_masked: bool = False,
     attribution: Attribution | None = None,
+    message: str = "",
 ) -> tuple[list[FilterResult], list[FilterResult]]:
     """(passed, all) in candidate order. On a trigger turn a candidate rejected only for a reason
     or topic claim is repaired if it can be (`repaired_from` keeps the original)."""
     results = []
     for cid, t in texts.items():
         reasons = check_candidate(
-            t, prior_context, hunch_turn, forget_turn, mood_masked, attribution
+            t, prior_context, hunch_turn, forget_turn, mood_masked, attribution, message
         )
         if hunch_turn is not None and reasons and set(reasons) <= _REPAIRABLE:
             fixed = repair_hunch_reply(t, prior_context, hunch_turn)

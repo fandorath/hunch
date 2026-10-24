@@ -133,12 +133,34 @@ def claims_memory(text: str) -> bool:
     return phrase_in(fold(text), _MEMORY_CLAIMS) and not admits_no_memory(text)
 
 
+# Claims about what the user said or did before (Berk, Phase 7 live check: "that new battery
+# technology you've been reading about" passed, since no fixed phrase matched). Questions and
+# offers about the present are not claims: "Did you get it today?", "Have you tried it?", "if
+# you need anything", "something you wanted to share".
+_PAST_CLAIM = re.compile(
+    r"(?<!\bdid )(?<!\bhave )(?<!\bhas )(?<!\bif )(?<!\bwhen )(?<!\bwhether )"
+    r"\b(?:you|u)(?:'ve| have| had)? (?:just |once |already |even |also |finally )?"
+    r"(?:been [^\W\d_]+ing\b|were [^\W\d_]+ing\b|said|told|asked|wrote|sent|shared|brought up"
+    r"|talked|mentioned|described|explained|complained|admitted|promised|planned|decided"
+    r"|wondered|thought|felt|bought|got|went|saw|met|started|finished|tried|called"
+    r"|[^\W\d_]{3,}ed)\b"
+    r"|\b(?:earlier|before|last time|the other day|yesterday) you\b"
+    r"|\byour new\b|\bi (?:told|mentioned to|said to|showed) you\b"
+)
+_OFFER = re.compile(r"\byou(?:'ve| have)? (?:were )?(?:want|need|mean|like|wish|hop|look)")
+
+
+def _claims_past(folded: str) -> bool:
+    return any(not _OFFER.match(folded, m.start()) for m in _PAST_CLAIM.finditer(folded))
+
+
 def memory_claim_sentences(text: str) -> list[str]:
-    """The sentences of `text` that claim a memory, unless the text admits having none."""
+    """The sentences of `text` that claim a memory, unless the text admits having none: a fixed
+    memory phrase ("you told me"), or a claim about what the user said or did before."""
     if admits_no_memory(text):
         return []
     sentences = re.split(r"(?<=[.!?])\s+|\n+", text)
-    return [s for s in sentences if phrase_in(fold(s), _MEMORY_CLAIMS)]
+    return [s for s in sentences if phrase_in(fold(s), _MEMORY_CLAIMS) or _claims_past(fold(s))]
 
 
 def detect_language(text: str) -> str | None:

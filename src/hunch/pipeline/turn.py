@@ -442,8 +442,9 @@ class TurnPipeline:
         if covered:
             instructions.append(RECALL_COVERS_INSTRUCTION)
         messages = build_reasoning_messages(
-            verbatim, text, session.summary, recalled, mood_text, instructions
-        )
+            verbatim, text, session.summary, recalled, mood_text, instructions,
+            datetime.fromtimestamp(now),
+        )  # fmt: skip
         batch = self.llm.generate_batch(
             messages, cfg.generation.candidates, self.candidate_sampling, seed=self._seed()
         )
@@ -472,7 +473,7 @@ class TurnPipeline:
             tuple((r.source, r.summary) for r in recalled if r.source),
         )
         passed, filtered = filter_candidates(
-            texts, prior_context, hunch_turn, forget_turn, masked, attribution
+            texts, prior_context, hunch_turn, forget_turn, masked, attribution, text
         )
         texts.update({r.id: r.text for r in filtered})  # repaired trigger-turn candidates
         timer.lap("filter")
@@ -566,11 +567,10 @@ class TurnPipeline:
                 return leaked
 
             for cid in selection.order:
-                rules = list(
-                    check_candidate(
-                        texts[cid], prior_context, hunch_turn, forget_turn, masked, attribution
-                    )
+                found_rules = check_candidate(
+                    texts[cid], prior_context, hunch_turn, forget_turn, masked, attribution, text
                 )
+                rules = list(found_rules)
                 leaks = disclosure_hits(texts[cid], terms)
                 pair_leaks = pair_hits(texts[cid], pairs)
                 found = [
@@ -927,7 +927,7 @@ class TurnPipeline:
         prior_context = loop.user_said if loop is not None else ""
         messages = build_reasoning_messages(
             [], OUTREACH_TRIGGER, session.summary, recalled, self.cfg.mood.neutral_label,
-            [instruction],
+            [instruction], datetime.fromtimestamp(self.clock()),
         )  # fmt: skip
         batch = self.llm.generate_batch(
             messages, self.cfg.generation.candidates, self.candidate_sampling, seed=self._seed()
